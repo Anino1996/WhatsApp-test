@@ -9,7 +9,7 @@ def ParseData(file):
     anino = list(file)
     anino_edited = [i.replace("\u200e","") for i in anino]
     Cleaned = []
-    datetimeSplice = []
+    datetimeSplice = [];
     Cleaned.append(anino_edited[0])
 
     
