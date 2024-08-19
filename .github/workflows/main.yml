@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    branches:
+    - main
+jobs:
+  login:
+    name: azure login
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Azure Login
+      uses: Azure/login@v2.1.0
+      with:
+        # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Get credentials
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: 
+          az keyvault certificate download --file "certificate.pem" --vault-name "COPSeattleKV" --name CRMCert
