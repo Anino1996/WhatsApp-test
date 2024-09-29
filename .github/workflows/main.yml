@@ -1,18 +1,23 @@
 on:
   pull_request:
     branches:
-    - main
+    - master
 jobs:
   login:
     name: azure login
     runs-on: ubuntu-latest
+    environment: Build
     
     steps:
     - name: Azure Login
       uses: Azure/login@v2.1.0
+      env:
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_SECRET }}
       with:
         # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        allow-no-subscriptions: true
 
     - name: Checkout
       uses: actions/checkout@v1
