@@ -6,6 +6,7 @@ jobs:
   login:
     name: azure login
     runs-on: ubuntu-latest
+    environment: Build
     
     steps:
     - name: Azure Login
